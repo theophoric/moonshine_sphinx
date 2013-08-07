@@ -6,7 +6,7 @@ module Sphinx
     manifest.class_eval do
       extend ClassMethods
 
-      configure :sphinx => { :version => '0.9.8.1', :extra => {}, :use_god => true }
+      configure :sphinx => { :version => '2.0.8', :extra => {}, :use_god => true }
       configure :rails_logrotate => {}
 
     end
@@ -14,7 +14,7 @@ module Sphinx
 
   module ClassMethods
     def sphinx_yml
-      @sphinx_yml ||= Pathname.new(configuration[:deploy_to]) + 'shared/config/sphinx.yml'
+      @sphinx_yml ||= Pathname.new(configuration[:deploy_to]) + 'shared/config/thinking_sphinx.yml'
     end
 
     def sphinx_configuration
@@ -45,7 +45,7 @@ module Sphinx
       end
     end
 
-    configure :sphinx => YAML::load(template(sphinx_template_dir + 'sphinx.yml', binding))
+    configure :sphinx => YAML::load(template(sphinx_template_dir + 'thinking_sphinx.yml', binding))
     sphinx_config_only
 
     [:searchd_files, :searchd_file_path].each do |config|
